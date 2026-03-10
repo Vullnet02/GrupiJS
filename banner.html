@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<title>Banner</title>
+<link rel="stylesheet" href="banner.css">
+</head>
+<body>
+
+<div class="banner">
+  <img id="bannerImg" src="assets/image-4.jpg" alt="banner">
+</div>
+
+<script>
+  const img = document.getElementById("bannerImg");
+  const photos = ["assets/image-4.jpg", "assets/image-3.png"];
+  let index = 0;
+
+  setInterval(() => {
+    index = (index + 1) % photos.length;
+    img.src = photos[index];
+  }, 3000); 
+</script>
+
+</body>
+</html>

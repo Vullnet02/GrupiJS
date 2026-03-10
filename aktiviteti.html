@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <input type="text" id="name">
+<button onclick="addStudent()">Shto Nxënës</button>
+
+<ul id="list"></ul> 
+
+
+    <script src="https://widget.cxgenie.ai/widget.js" data-aid="94e52e99-ed65-4307-b3a7-3003ca4638b3"
+		
+		 data-lang="en"></script>
+
+
+         <script>
+            function addStudent(){
+
+                let name = document.getElementById("name").value;
+
+                document.getElementById("list").innerHTML += "<li>"+name+"</li>";
+
+                }
+         </script>
+</body>
+</html>
