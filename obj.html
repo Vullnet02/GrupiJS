@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Student Hobbies</h2>
+<ul id="hobbyList"></ul>
+
+<button onclick="showHobbies()">Show Hobbies</button>
+
+
+<button onclick="showPerson(student)">Student</button>
+<button onclick="showPerson(teacher)">Teacher</button>
+<button onclick="showPerson(doctor)">Doctor</button>
+
+<h3 id="info"></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<script>
+    const student = {
+        name: "John Doe",
+        hobbies: ["Reading", "Swimming", "Coding"]
+    };
+
+
+    const teacher = {
+        name: "Jane Smith",
+        surname: "Smith",
+        city: "New York"
+    };
+
+    const doctor = {
+        name: "Dr. Alice Brown",
+        surname: "Brown",
+        city: "Los Angeles"
+    };
+
+
+    function showHobbies() {
+        const hobbyList = document.getElementById("hobbyList");
+        hobbyList.innerHTML = "";
+        student.hobbies.forEach(hobby => {
+            const li = document.createElement("li");
+            li.textContent = hobby;
+            hobbyList.appendChild(li);
+        });
+    }
+
+
+    function showPerson(person) {
+
+document.getElementById("info").innerText =
+person.name + " " + person.surname + " - " + person.city;
+
+}
+</script> -->
+
+
+<script src="obj.js"></script>
+</body>
+</html>

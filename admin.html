@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+ <style>
+        .sidebar {
+            width: 200px;
+            height: 100vh;
+            background-color: #333;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding-top: 20px;
+            
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 10px;
+        }
+
+        .sidebar ul li a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            font-family: monospace;
+            font-size: 17px;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #444;
+        }
+
+
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <ul>
+            <li><button onclick="showPerson(student)">Student</button></li>
+            <li><button onclick="showPerson(teacher)">Teacher</button></li>
+            <li><button onclick="showPerson(doctor)">Doctor</button></li>
+            <li><button onclick="showHobbies()">Show Hobbies</button></li>
+        </ul>
+    </nav>
+
+    <section class="content">
+    <h2>Student Hobbies</h2>
+    <ul id="hobbyList"></ul>
+
+    <h3 id="info"></h3>
+
+    </section>
+
+
+<script src="obj.js"></script>
+   
+</body>
+</html>
