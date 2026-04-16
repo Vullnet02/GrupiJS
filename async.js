@@ -7,12 +7,40 @@ function getStudentCallback(callback) {
 
     setTimeout(function () {
         const student = {
-            name: "Ensar Llukman Shabani",
+            name: "Erblin Gashi",
             age: 14,
-            grupi: "JS"
+            pozita: "Me flamurat e Kosovës"
         };
 
-        callback(student);
+    
+        const programer = {
+            name: "Ensar Shabani",
+            age: 14,
+            pozita: "Me flamurat e Kosovës"
+        };
+
+
+
+        const dizajnere = {
+            name: "Nisa Salihu",
+            age: 14,
+            pozita: "Dizajnere"
+        }
+        
+        const pilot = {
+            name: "Dardan Gashi",
+            age: 14,
+            pozita: "Pilot"
+        }
+
+        const doctor = {
+            name: "Ajra Nimani",
+            age: 14,
+            pozita: "Doctore"
+        }
+
+
+        callback(student, programer, dizajnere, pilot, doctor);
 
     }, 5000);
 
@@ -20,11 +48,27 @@ function getStudentCallback(callback) {
 
 function loadCallback() {
 
-    getStudentCallback(function (student) {
-    result.innerHTML = "Callback Result:<br>"+
+    getStudentCallback(function (student, programer, dizajnere, pilot, doctor) {
+    result.innerHTML = "Pershkrimet e personave dhe pozitave   :<br>"+
     student.name + " - " +
     student.age + " - " +
-    student.grupi + "<br>" 
+    student.pozita + "<br>" +
+    programer.name + " - " +
+    programer.age + " - " +
+    programer.pozita + "<br>" +
+    dizajnere.name + " - " +
+    dizajnere.age + " - " +
+    dizajnere.pozita + "<br>" +
+    pilot.name + " - " +
+    pilot.age + " - " +
+    pilot.pozita + "<br>" +
+    doctor.name + " - " +
+    doctor.age + " - " +
+    doctor.pozita + "<br>"  ;
+
     });
 
 }
+
+
+
