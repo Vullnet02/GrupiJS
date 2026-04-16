@@ -35,3 +35,78 @@
     <script src="https://widget.cxgenie.ai/widget.js" data-aid="c351955c-4739-42af-8d18-705b58d81a0a" data-lang="en"></script>
 </body>
 </html>
+
+
+<button onclick="loadPromise()">Promise</button>
+<button onclick="loadAsyncAwait()">Async/Await</button>
+
+
+
+<script>
+
+
+
+    
+
+function loadCallback() {
+
+    getStudentCallback(function (student, designer) {
+    result.innerHTML = "Callback Result:<br>"+
+    student.name + " - " +
+    student.age + " - " +
+    student.grupi + "<br>" +
+    designer.name + " - " +
+    designer.age + " - " +
+    designer.grupi;
+
+    });
+
+}
+
+function getStudentPromise() {
+
+    result.innerHTML = "Loading student...";
+
+    return new Promise(function (resolve, reject) {
+
+        setTimeout(function () {
+            const student = {
+                name: "Ensar Llukman Shabani",
+                age: 14,
+                grupi: "JS"
+            };
+            resolve(student);
+        }, 5000);
+
+    });
+
+}
+
+function loadPromise() {
+    getStudentPromise()
+        .then(function (student) {
+            result.innerHTML = "Promise Result:<br>" +
+                student.name + " - " +
+                student.age + " - " +
+                student.grupi;
+        })
+        .catch(function (error) {
+            result.innerHTML = "Error: " + error;
+        }); 
+}
+
+async function loadAsyncAwait() {
+    try {
+        result.innerHTML = "Loading student...";        
+        const student = await getStudentPromise();
+        result.innerHTML = "Async/Await Result:<br>" +
+            student.name + " - " +
+            student.age + " - " +
+            student.grupi;
+    } catch (error) {
+        result.innerHTML = "Error: " + error;
+    }   
+}
+
+    
+</script>

@@ -147,7 +147,16 @@ function showHobbies() {
     function showPerson(person) {
 
 document.getElementById("info").innerText =
-person.name + " " + person.age + " - " + person.city;
+person.name + " " + person.surname + " " + person.age + " Vjet - " + person.city;
+
+document.getElementById("info").innerText =
+person.name + " " + person.surname + " " + person.age + " Vjet - " + person.city;
+
+document.getElementById("info").innerText =
+person.name + " " + person.surname + " " + person.age + " Vjet - " + person.city;
+
+document.getElementById("info").innerText =
+person.name + " " + person.surname + " " + person.age + " Vjet - " + person.city;
 
 }
 
@@ -175,3 +184,37 @@ const doctor = {
 
 
 const hobbies = ["Reading", "Traveling", "Gaming"];
+
+
+const programmer = {
+    name: "Alban",
+    surname: "Krasniqi",
+    age: 30,
+    city: "Peja",
+    hobbies: ["Coding", "Robotics", "Gaming"]
+};
+
+const engineer = {
+    name: "Erblin",
+    surname: "Gashi",
+    age: 41,
+    city: "Gjakova",
+    hobbies: ["Coding", "Robotics", "Gaming"]
+};
+
+const manager = {
+    name: "Gertina",
+    surname: "Kazanova",
+    age: 81,
+    city: "Prishtina",
+    hobbies: ["Coding", "Robotics", "Gaming"]
+};
+
+const intern = {
+    name: "Arta",
+    surname: "Rama",
+    age: 38,
+    city: "Mitrovica",
+    hobbies: ["Coding", "Robotics", "Gaming"]
+};
+
