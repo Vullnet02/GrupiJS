@@ -1,0 +1,90 @@
+🔹 1.
+async function getUsers() {
+  try {
+    const res = await fetch("https://jsonplaceholder.typicode.com/users");
+Çfarë ndodh realisht:
+async function
+👉 e bën funksionin asinkron → mund të përdorë await
+await fetch(...)
+👉 dërgon një HTTP request (GET) te API
+👉 pret derisa serveri të kthejë përgjigje
+res
+👉 NUK është data
+👉 është një Response object (meta info)
+
+Shembull çfarë ka brenda:
+
+res.status   // 200
+res.ok       // true
+res.headers  // info për response
+
+👉 Gabimi klasik: njerëzit mendojnë që res = data → gabim
+
+🔹 2.
+if (!res.ok) {
+  throw new Error("API error");
+}
+Çfarë bën:
+res.ok = true vetëm nëse status është 200–299
+!res.ok = diçka ka dështuar (404, 500, etj)
+
+👉 nëse API dështon:
+
+throw new Error(...)
+→ ndalon ekzekutimin menjëherë
+→ kalon direkt te catch
+
+👉 pa këtë:
+
+app vazhdon sikur çdo gjë është OK (gabim i madh)
+🔹 3.
+const data = await res.json();
+console.log(data);
+Çfarë ndodh:
+res.json()
+👉 lexon body-n e response
+👉 e konverton nga JSON → JavaScript object/array
+await
+👉 sepse edhe kjo është async
+
+👉 tani:
+
+data = array me users
+
+Shembull:
+
+[
+  { id: 1, name: "Leanne Graham" }
+]
+console.log(data)
+👉 vetëm për debug / kontroll
+
+👉 pa .json():
+
+nuk ke access në data reale
+🔹 4.
+catch (err) {
+  console.error("Error:", err);
+}
+Çfarë bën:
+kap çdo error që ndodh në try
+
+👉 mund të vijë nga:
+
+API fail (throw new Error)
+network problem
+bug në kod
+console.error
+👉 shfaq error në console
+
+👉 pa catch:
+
+app crash → nuk e kontrollon dot
+🧠 Përmbledhje brutale (duhet ta mbajnë mend)
+fetch → merr response (jo data)
+↓
+check res.ok → a është request OK?
+↓
+res.json() → merr data reale
+↓
+catch → kap çdo problem

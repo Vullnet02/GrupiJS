@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GAP Fashion</title>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#f5f5f5;
+      color:#111;
+    }
+
+    header{
+      width:100%;
+      padding:20px 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      background:white;
+      position:fixed;
+      top:0;
+      z-index:1000;
+      box-shadow:0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .logo{
+      font-size:35px;
+      font-weight:bold;
+      color:#002654;
+      letter-spacing:3px;
+    }
+
+    nav{
+      display:flex;
+      gap:25px;
+    }
+
+    nav a{
+      text-decoration:none;
+      color:#111;
+      font-weight:600;
+      transition:0.3s;
+    }
+
+    nav a:hover{
+      color:#002654;
+    }
+
+    section{
+      padding:100px 8%;
+    }
+
+    /* HERO */
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:50px;
+      background:white;
+      padding-top:150px;
+    }
+
+    .hero-text{
+      flex:1;
+    }
+
+    .hero-text h1{
+      font-size:70px;
+      line-height:1.1;
+      margin-bottom:25px;
+      color:#002654;
+    }
+
+    .hero-text p{
+      font-size:18px;
+      color:#555;
+      margin-bottom:30px;
+      line-height:1.8;
+      max-width:600px;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:15px 35px;
+      border:none;
+      text-decoration:none;
+      border-radius:8px;
+      font-weight:bold;
+      transition:0.3s;
+      display:inline-block;
+    }
+
+    .btn-primary{
+      background:#002654;
+      color:white;
+    }
+
+    .btn-primary:hover{
+      background:#00193d;
+    }
+
+    .btn-secondary{
+      border:2px solid #002654;
+      color:#002654;
+    }
+
+    .btn-secondary:hover{
+      background:#002654;
+      color:white;
+    }
+
+    .hero-image{
+      flex:1;
+    }
+
+    .hero-image img{
+      width:100%;
+      border-radius:20px;
+      object-fit:cover;
+      height:700px;
+    }
+
+    /* PRODUKTET */
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title h2{
+      font-size:45px;
+      color:#002654;
+      margin-bottom:15px;
+    }
+
+    .section-title p{
+      color:#666;
+      max-width:700px;
+      margin:auto;
+      line-height:1.7;
+    }
+
+    .products-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:30px;
+    }
+
+    .product-card{
+      background:white;
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+      transition:0.3s;
+    }
+
+    .product-card:hover{
+      transform:translateY(-10px);
+    }
+
+    .product-card img{
+      width:100%;
+      height:350px;
+      object-fit:cover;
+    }
+
+    .product-content{
+      padding:25px;
+    }
+
+    .product-content h3{
+      margin-bottom:10px;
+      font-size:24px;
+    }
+
+    .product-content p{
+      color:#666;
+      line-height:1.6;
+      margin-bottom:20px;
+    }
+
+    .price{
+      font-size:22px;
+      font-weight:bold;
+      color:#002654;
+      margin-bottom:20px;
+    }
+
+    /* ABOUT */
+
+    .about{
+      background:#002654;
+      color:white;
+      border-radius:25px;
+      display:flex;
+      align-items:center;
+      gap:50px;
+      flex-wrap:wrap;
+    }
+
+    .about img{
+      width:450px;
+      max-width:100%;
+      border-radius:20px;
+    }
+
+    .about-text{
+      flex:1;
+    }
+
+    .about-text h2{
+      font-size:45px;
+      margin-bottom:25px;
+    }
+
+    .about-text p{
+      line-height:1.9;
+      color:#ddd;
+      margin-bottom:20px;
+    }
+
+    /* NEWSLETTER */
+
+    .newsletter{
+      text-align:center;
+      background:white;
+      border-radius:25px;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .newsletter h2{
+      font-size:45px;
+      color:#002654;
+      margin-bottom:20px;
+    }
+
+    .newsletter p{
+      color:#666;
+      max-width:700px;
+      margin:auto;
+      margin-bottom:30px;
+      line-height:1.7;
+    }
+
+    .newsletter-form{
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      flex-wrap:wrap;
+    }
+
+    .newsletter-form input{
+      width:350px;
+      max-width:100%;
+      padding:16px;
+      border-radius:10px;
+      border:1px solid #ccc;
+      outline:none;
+    }
+
+    .newsletter-form button{
+      padding:16px 35px;
+      border:none;
+      background:#002654;
+      color:white;
+      border-radius:10px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    footer{
+      background:#111;
+      color:#aaa;
+      text-align:center;
+      padding:30px;
+      margin-top:80px;
+    }
+
+    @media(max-width:900px){
+
+      .hero{
+        flex-direction:column;
+      }
+
+      .hero-text h1{
+        font-size:50px;
+      }
+
+      nav{
+        gap:15px;
+      }
+
+      nav a{
+        font-size:14px;
+      }
+
+      .about{
+        text-align:center;
+      }
+
+    }
+
+    @media(max-width:600px){
+
+      header{
+        flex-direction:column;
+        gap:15px;
+      }
+
+      .hero-text h1{
+        font-size:40px;
+      }
+
+      .section-title h2,
+      .about-text h2,
+      .newsletter h2{
+        font-size:35px;
+      }
+
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+
+  <header>
+
+    <div class="logo">GAP</div>
+
+    <nav>
+      <a href="#home">Ballina</a>
+      <a href="#products">Produktet</a>
+      <a href="#about">Rreth Nesh</a>
+    </nav>
+
+  </header>
+
+  <!-- HERO -->
+
+  <section class="hero" id="home">
+
+    <div class="hero-text">
+
+      <h1>Stili Modern Fillon me GAP</h1>
+
+      <p>
+        Zbulo koleksionet më të reja me kualitet premium,
+        rehati maksimale dhe stil modern. Nga hoodies,
+        xhaketa deri te veshjet e përditshme, GAP sjell
+        kombinimin perfekt të modës dhe komoditetit.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#products" class="btn btn-primary">Shiko Produktet</a>
+        <a href="#about" class="btn btn-secondary">Më Shumë</a>
+      </div>
+
+    </div>
+
+    <div class="hero-image">
+      <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?q=80&w=1200&auto=format&fit=crop">
+    </div>
+
+  </section>
+
+  <!-- PRODUKTET -->
+
+  <section id="products">
+
+    <div class="section-title">
+
+      <h2>Koleksioni Trending</h2>
+
+      <p>
+        Eksploro veshjet më moderne të frymëzuara nga
+        moda urbane, minimalizmi dhe komoditeti premium.
+      </p>
+
+    </div>
+
+    <div class="products-grid">
+
+      <div class="product-card">
+
+        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=900&auto=format&fit=crop">
+
+        <div class="product-content">
+
+          <h3>Hoodie Klasike</h3>
+
+          <p>
+            Hoodie premium me material të butë dhe rehati maksimale.
+          </p>
+
+          <div class="price">49.99€</div>
+
+          <a href="#" class="btn btn-primary">Bli Tani</a>
+
+        </div>
+
+      </div>
+
+      <div class="product-card">
+
+        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=900&auto=format&fit=crop">
+
+        <div class="product-content">
+
+          <h3>Outfit Minimal</h3>
+
+          <p>
+            Kombinim perfekt për stil modern dhe elegant të përditshëm.
+          </p>
+
+          <div class="price">69.99€</div>
+
+          <a href="#" class="btn btn-primary">Bli Tani</a>
+
+        </div>
+
+      </div>
+
+      <div class="product-card">
+
+        <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=900&auto=format&fit=crop">
+
+        <div class="product-content">
+
+          <h3>Xhaketë Streetwear</h3>
+
+          <p>
+            Xhaketë oversized me dizajn modern dhe rehati maksimale.
+          </p>
+
+          <div class="price">89.99€</div>
+
+          <a href="#" class="btn btn-primary">Bli Tani</a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ABOUT -->
+
+  <section id="about">
+
+    <div class="about">
+
+      <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?q=80&w=1200&auto=format&fit=crop">
+
+      <div class="about-text">
+
+        <h2>Moda që Ndihet Premium</h2>
+
+        <p>
+          GAP kombinon stilin modern me komoditetin për të krijuar
+          koleksione që përshtaten me çdo stil jetese.
+          Çdo produkt është krijuar me fokus në kualitet,
+          thjeshtësi dhe elegancë.
+        </p>
+
+        <p>
+          Frymëzuar nga moda moderne urbane dhe trendet globale,
+          GAP sjell veshje që të bëjnë të dukesh mirë dhe
+          të ndihesh rehat çdo ditë.
+        </p>
+
+        <a href="#" class="btn btn-primary">Eksploro Më Shumë</a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- NEWSLETTER -->
+
+  <section>
+
+    <div class="newsletter">
+
+      <h2>Bashkohu me Komunitetin Tonë</h2>
+
+      <p>
+        Regjistrohu për oferta ekskluzive, zbritje speciale
+        dhe koleksionet më të reja direkt në emailin tënd.
+      </p>
+
+      <div class="newsletter-form">
+
+        <input type="email" placeholder="Shkruaj emailin">
+
+        <button>Regjistrohu</button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+    © 2026 GAP Fashion. Të gjitha të drejtat e rezervuara.
+  </footer>
+
+</body>
+</html>

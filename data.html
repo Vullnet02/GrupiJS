@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>JavaScript Maps</h1>
+<h2>The set() Method</h2>
+
+<p id="demo"></p>
+
+<script>
+// Create a new Map
+const fruits = new Map();
+
+// Set Map Values
+fruits.set("Developer", 20);
+fruits.set("Designer", 5);
+fruits.set("Manager", 2);
+
+let numb = fruits.get("Developer");
+let numb1 = fruits.get("Designer");
+let numb2 = fruits.get("Manager");
+
+document.getElementById("demo").innerHTML = "There are " + numb + " Developers." + "<br>" + "There are " + numb1 + " Designers." + "<br>" + "There are " + numb2 + " Managers." + "<br>" + "Total: " + (numb + numb1 + numb2);
+
+</script>
+
+</body>
+</html>
+

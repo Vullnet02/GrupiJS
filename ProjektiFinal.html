@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projekti Final - JavaScript</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f2f5;
+      color: #333;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      background: #1a1a2e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      color: #e94560;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-links button {
+      background: transparent;
+      border: 2px solid #e94560;
+      color: #ccc;
+      padding: 6px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+
+    .nav-links button:hover,
+    .nav-links button.active {
+      background: #e94560;
+      color: #fff;
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    .burger span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      display: none;
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .section.visible {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #1a1a2e;
+      border-left: 4px solid #e94560;
+      padding-left: 12px;
+    }
+
+    /* ── CARD ── */
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      padding: 10px 22px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-primary { background: #007bff; color: #fff; }
+    .btn-primary:hover { background: #0056b3; }
+
+    .btn-success { background: #28a745; color: #fff; }
+    .btn-success:hover { background: #1e7e34; }
+
+    .btn-danger  { background: #dc3545; color: #fff; }
+    .btn-danger:hover  { background: #bd2130; }
+
+    .btn-warning { background: #ffc107; color: #000; }
+    .btn-warning:hover { background: #e0a800; }
+
+    /* ── COUNTER ── */
+    #counterDisplay {
+      font-size: 3rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 20px;
+      color: #1a1a2e;
+      transition: color 0.3s;
+    }
+
+    .counter-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    /* ── OBJECTS ── */
+    .person-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    #personInfo {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      min-height: 80px;
+    }
+
+    #personInfo .name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #1a1a2e;
+    }
+
+    #personInfo .detail {
+      color: #555;
+      margin-top: 6px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .hobby-tag {
+      display: inline-block;
+      background: #e94560;
+      color: #fff;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      margin: 3px;
+    }
+
+    /* ── LIST ── */
+    .input-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .input-row input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .input-row input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    #studentList {
+      list-style: none;
+      margin-top: 10px;
+    }
+
+    #studentList li {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 10px 16px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    #studentList li .remove-btn {
+      background: none;
+      border: none;
+      color: #dc3545;
+      cursor: pointer;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    /* ── FETCH / USERS ── */
+    .search-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .search-row input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+
+    .search-row input:focus {
+      outline: none;
+      border-color: #007bff;
+    }
+
+    #status {
+      text-align: center;
+      font-weight: 600;
+      color: #555;
+      min-height: 24px;
+      margin-bottom: 10px;
+    }
+
+    .user-card {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 14px 18px;
+      margin-bottom: 10px;
+    }
+
+    .user-card strong {
+      font-size: 1rem;
+      color: #1a1a2e;
+    }
+
+    .user-card span {
+      display: block;
+      font-size: 0.88rem;
+      color: #666;
+      margin-top: 3px;
+    }
+
+    /* ── ASYNC ── */
+    .async-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    #asyncResult {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      min-height: 80px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #1a1a2e;
+    }
+
+    .loading-text { color: #007bff; font-style: italic; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .nav-links { display: none; flex-direction: column; gap: 8px; }
+      .nav-links.open { display: flex; position: absolute; top: 60px; left: 0; right: 0; background: #1a1a2e; padding: 16px 20px; }
+      .burger { display: flex; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAVBAR ── -->
+<nav>
+  <div class="logo">JS Projekti Final</div>
+
+  <ul class="nav-links" id="navLinks">
+    <li><button class="active" onclick="showSection('counter', this)">Counter</button></li>
+    <li><button onclick="showSection('objects', this)">Objektet</button></li>
+    <li><button onclick="showSection('list', this)">Lista</button></li>
+    <li><button onclick="showSection('fetch', this)">Fetch API</button></li>
+    <li><button onclick="showSection('async', this)">Async</button></li>
+  </ul>
+
+  <button class="burger" id="burger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 1 — COUNTER (DOM + Events)
+══════════════════════════════════════════ -->
+<section id="counter" class="section visible">
+  <h2>1. Counter — DOM Manipulation & Events</h2>
+  <div class="card">
+    <div id="counterDisplay">0</div>
+    <p style="text-align:center; color:#888; font-size:0.85rem; margin-bottom:16px;">
+      Ngjyra ndryshon kur totali kalon 50
+    </p>
+    <div class="counter-buttons">
+      <button class="btn btn-success" onclick="changeCounter(+5)">+5</button>
+      <button class="btn btn-success" onclick="changeCounter(+10)">+10</button>
+      <button class="btn btn-success" onclick="changeCounter(+1)">+1</button>
+      <button class="btn btn-danger" onclick="changeCounter(-5)">-5</button>
+      <button class="btn btn-warning" onclick="resetCounter()">Reset</button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 2 — OBJECTS
+══════════════════════════════════════════ -->
+<section id="objects" class="section">
+  <h2>2. Objektet — Objects & Properties</h2>
+  <div class="card">
+    <div class="person-buttons">
+      <button class="btn btn-primary" onclick="showPerson(student)">Student</button>
+      <button class="btn btn-primary" onclick="showPerson(teacher)">Mësuesi</button>
+      <button class="btn btn-primary" onclick="showPerson(doctor)">Doktori</button>
+      <button class="btn btn-primary" onclick="showPerson(programmer)">Programeri</button>
+    </div>
+    <div id="personInfo">
+      <p style="color:#aaa;">Kliko një buton për të parë informatat...</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 3 — DYNAMIC LIST (Arrays)
+══════════════════════════════════════════ -->
+<section id="list" class="section">
+  <h2>3. Lista Dinamike — Arrays & DOM</h2>
+  <div class="card">
+    <div class="input-row">
+      <input type="text" id="studentInput" placeholder="Shkruaj emrin e nxënësit..." />
+      <button class="btn btn-success" onclick="addStudent()">Shto</button>
+      <button class="btn btn-danger" onclick="clearList()">Fshi të gjithë</button>
+    </div>
+    <ul id="studentList"></ul>
+    <p id="listCount" style="color:#888; font-size:0.85rem; margin-top:8px;"></p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 4 — FETCH API (Async/Await)
+══════════════════════════════════════════ -->
+<section id="fetch" class="section">
+  <h2>4. Fetch API — Async/Await & Filter</h2>
+  <div class="card">
+    <div class="search-row">
+      <button class="btn btn-primary" onclick="loadUsers()">Ngarko Users</button>
+      <input type="text" id="userSearch" placeholder="Kërko user..." oninput="filterUsers()" />
+      <button class="btn btn-danger" onclick="clearUsers()">Pastro</button>
+    </div>
+    <div id="status"></div>
+    <div id="usersResult"></div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     SECTION 5 — ASYNC (Callback / Promise / Async-Await)
+══════════════════════════════════════════ -->
+<section id="async" class="section">
+  <h2>5. Async JavaScript — Callback, Promise, Async/Await</h2>
+  <div class="card">
+    <div class="async-buttons">
+      <button class="btn btn-primary" onclick="runCallback()">Callback</button>
+      <button class="btn btn-success" onclick="runPromise()">Promise</button>
+      <button class="btn btn-warning" onclick="runAsyncAwait()">Async / Await</button>
+    </div>
+    <div id="asyncResult">
+      <p style="color:#aaa;">Kliko një buton për të ekzekutuar...</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+
+  // ─────────────────────────────────────────
+  // NAVBAR — Section switching + Burger menu
+  // ─────────────────────────────────────────
+  function showSection(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+    document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('visible');
+    btn.classList.add('active');
+
+    // close burger menu on mobile
+    document.getElementById('navLinks').classList.remove('open');
+  }
+
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+
+  // ─────────────────────────────────────────
+  // SECTION 1 — COUNTER
+  // ─────────────────────────────────────────
+  let count = 0;
+
+  function changeCounter(amount) {
+    count += amount;
+    updateCounter();
+  }
+
+  function resetCounter() {
+    count = 0;
+    updateCounter();
+  }
+
+  function updateCounter() {
+    const display = document.getElementById('counterDisplay');
+    display.textContent = count;
+
+    if (count > 50) {
+      display.style.color = '#28a745';
+    } else if (count < 0) {
+      display.style.color = '#dc3545';
+    } else {
+      display.style.color = '#1a1a2e';
+    }
+  }
+
+
+  // ─────────────────────────────────────────
+  // SECTION 2 — OBJECTS
+  // ─────────────────────────────────────────
+  const student = {
+    name: "Ardit Hoxha",
+    age: 20,
+    city: "Prishtinë",
+    pozita: "Student",
+    hobbies: ["Coding", "Traveling", "Gaming"]
+  };
+
+  const teacher = {
+    name: "Limi Hoxha",
+    age: 35,
+    city: "Prizren",
+    pozita: "Mësues",
+    hobbies: ["Reading", "Teaching", "Walking"]
+  };
+
+  const doctor = {
+    name: "Ajra Nimani",
+    age: 30,
+    city: "Pejë",
+    pozita: "Doktor",
+    hobbies: ["Medicine", "Yoga", "Cooking"]
+  };
+
+  const programmer = {
+    name: "Ensar Shabani",
+    age: 22,
+    city: "Gjakovë",
+    pozita: "Programer",
+    hobbies: ["JavaScript", "React", "Open Source"]
+  };
+
+  function showPerson(person) {
+    const hobbiesHTML = person.hobbies
+      .map(h => `<span class="hobby-tag">${h}</span>`)
+      .join('');
+
+    document.getElementById('personInfo').innerHTML = `
+      <div class="name">${person.name}</div>
+      <div class="detail">
+        🎂 Mosha: <strong>${person.age}</strong> &nbsp;|&nbsp;
+        📍 Qyteti: <strong>${person.city}</strong> &nbsp;|&nbsp;
+        💼 Pozita: <strong>${person.pozita}</strong>
+      </div>
+      <div style="margin-top:10px;">${hobbiesHTML}</div>
+    `;
+  }
+
+
+  // ─────────────────────────────────────────
+  // SECTION 3 — DYNAMIC LIST
+  // ─────────────────────────────────────────
+  let students = [];
+
+  function addStudent() {
+    const input = document.getElementById('studentInput');
+    const name = input.value.trim();
+
+    if (name === '') {
+      input.style.borderColor = '#dc3545';
+      return;
+    }
+
+    input.style.borderColor = '#ccc';
+    students.push(name);
+    input.value = '';
+    renderList();
+  }
+
+  // Allow pressing Enter to add
+  document.getElementById('studentInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') addStudent();
+  });
+
+  function removeStudent(index) {
+    students.splice(index, 1);
+    renderList();
+  }
+
+  function clearList() {
+    students = [];
+    renderList();
+  }
+
+  function renderList() {
+    const ul = document.getElementById('studentList');
+    const count = document.getElementById('listCount');
+
+    ul.innerHTML = students.map((name, i) => `
+      <li>
+        <span>${i + 1}. ${name}</span>
+        <button class="remove-btn" onclick="removeStudent(${i})">✕</button>
+      </li>
+    `).join('');
+
+    count.textContent = students.length > 0
+      ? `Gjithsej: ${students.length} nxënës`
+      : '';
+  }
+
+
+  // ─────────────────────────────────────────
+  // SECTION 4 — FETCH API
+  // ─────────────────────────────────────────
+  let usersData = [];
+
+  async function loadUsers() {
+    const statusDiv = document.getElementById('status');
+    const resultDiv = document.getElementById('usersResult');
+
+    statusDiv.innerHTML = '<span class="loading-text">Duke ngarkuar...</span>';
+    resultDiv.innerHTML = '';
+    usersData = [];
+
+    try {
+      const res = await fetch('https://jsonplaceholder.typicode.com/users');
+
+      if (!res.ok) throw new Error('API error');
+
+      const data = await res.json();
+
+      // Sort alfabetikisht
+      usersData = data.sort((a, b) => a.name.localeCompare(b.name));
+
+      statusDiv.innerHTML = `${usersData.length} users u ngarkuan.`;
+      renderUsers(usersData);
+
+    } catch (err) {
+      statusDiv.innerHTML = '<span style="color:red;">Gabim gjatë ngarkimit!</span>';
+      console.error(err);
+    }
+  }
+
+  function renderUsers(users) {
+    const resultDiv = document.getElementById('usersResult');
+
+    if (users.length === 0) {
+      resultDiv.innerHTML = '<p style="color:#888;">Asnjë user nuk u gjet.</p>';
+      return;
+    }
+
+    resultDiv.innerHTML = users.map(user => `
+      <div class="user-card">
+        <strong>${user.name}</strong>
+        <span>📧 ${user.email}</span>
+        <span>👤 ${user.username} &nbsp;|&nbsp; 📞 ${user.phone}</span>
+      </div>
+    `).join('');
+  }
+
+  function filterUsers() {
+    const query = document.getElementById('userSearch').value.toLowerCase();
+    const filtered = usersData.filter(u =>
+      u.name.toLowerCase().includes(query) ||
+      u.email.toLowerCase().includes(query) ||
+      u.username.toLowerCase().includes(query)
+    );
+    renderUsers(filtered);
+  }
+
+  function clearUsers() {
+    usersData = [];
+    document.getElementById('usersResult').innerHTML = '';
+    document.getElementById('userSearch').value = '';
+    document.getElementById('status').innerHTML = '';
+  }
+
+
+  // ─────────────────────────────────────────
+  // SECTION 5 — ASYNC: Callback / Promise / Async-Await
+  // ─────────────────────────────────────────
+  const asyncResult = document.getElementById('asyncResult');
+
+  // CALLBACK
+  function getData(callback) {
+    asyncResult.innerHTML = '<span class="loading-text">Duke pritur (Callback)... 2 sekonda</span>';
+    setTimeout(function () {
+      const person = { name: "Ardit Hoxha", age: 20, grupi: "JavaScript" };
+      callback(person);
+    }, 2000);
+  }
+
+  function runCallback() {
+    getData(function (person) {
+      asyncResult.innerHTML = `
+        <strong>✅ Callback u ekzekutua:</strong><br>
+        Emri: ${person.name} &nbsp;|&nbsp; Mosha: ${person.age} &nbsp;|&nbsp; Grupi: ${person.grupi}
+      `;
+    });
+  }
+
+  // PROMISE
+  function getDataPromise() {
+    asyncResult.innerHTML = '<span class="loading-text">Duke pritur (Promise)... 2 sekonda</span>';
+    return new Promise(function (resolve, reject) {
+      setTimeout(function () {
+        const person = { name: "Ensar Shabani", age: 22, grupi: "JavaScript" };
+        resolve(person);
+      }, 2000);
+    });
+  }
+
+  function runPromise() {
+    getDataPromise()
+      .then(function (person) {
+        asyncResult.innerHTML = `
+          <strong>✅ Promise u ekzekutua:</strong><br>
+          Emri: ${person.name} &nbsp;|&nbsp; Mosha: ${person.age} &nbsp;|&nbsp; Grupi: ${person.grupi}
+        `;
+      })
+      .catch(function (err) {
+        asyncResult.innerHTML = `<span style="color:red;">Gabim: ${err}</span>`;
+      });
+  }
+
+  // ASYNC / AWAIT
+  async function runAsyncAwait() {
+    asyncResult.innerHTML = '<span class="loading-text">Duke pritur (Async/Await)... 2 sekonda</span>';
+    try {
+      const person = await new Promise(function (resolve) {
+        setTimeout(function () {
+          resolve({ name: "Nisa Salihu", age: 21, grupi: "JavaScript" });
+        }, 2000);
+      });
+
+      asyncResult.innerHTML = `
+        <strong>✅ Async/Await u ekzekutua:</strong><br>
+        Emri: ${person.name} &nbsp;|&nbsp; Mosha: ${person.age} &nbsp;|&nbsp; Grupi: ${person.grupi}
+      `;
+    } catch (err) {
+      asyncResult.innerHTML = `<span style="color:red;">Gabim: ${err}</span>`;
+    }
+  }
+
+</script>
+</body>
+</html>

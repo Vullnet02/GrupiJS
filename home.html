@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Home</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    /* ──────────── NAVBAR ──────────── */
+    nav {
+      background: #1a1a2e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 30px;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      color: #e94560;
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #e94560;
+    }
+
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .burger span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    /* Burger animation when open */
+    .burger.open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .burger.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .burger.open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* ──────────── SLIDER ──────────── */
+    .slider {
+      position: relative;
+      overflow: hidden;
+      height: 380px;
+    }
+
+    .slides {
+      display: flex;
+      height: 100%;
+      transition: transform 0.5s ease;
+    }
+
+    .slide {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .slide:nth-child(1) { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+    .slide:nth-child(2) { background: linear-gradient(135deg, #0f3460, #533483); }
+    .slide:nth-child(3) { background: linear-gradient(135deg, #e94560, #c62a47); }
+
+    .slide h2 {
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    .slide p {
+      font-size: 1rem;
+      opacity: 0.85;
+      max-width: 500px;
+    }
+
+    .slide-btn {
+      margin-top: 20px;
+      padding: 10px 28px;
+      background: #e94560;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+
+    .slide:nth-child(3) .slide-btn {
+      background: #1a1a2e;
+    }
+
+    .slide-btn:hover {
+      opacity: 0.85;
+    }
+
+    .slider-controls {
+      position: absolute;
+      bottom: 14px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .dot.active {
+      background: #fff;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.35);
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .arrow:hover { background: rgba(0,0,0,0.6); }
+    .arrow.left  { left: 12px; }
+    .arrow.right { right: 12px; }
+
+    /* ──────────── CARDS ──────────── */
+    .cards-section {
+      padding: 50px 30px;
+      text-align: center;
+    }
+
+    .cards-section h2 {
+      font-size: 1.7rem;
+      margin-bottom: 8px;
+      color: #1a1a2e;
+    }
+
+    .cards-section p.subtitle {
+      color: #777;
+      margin-bottom: 35px;
+      font-size: 0.95rem;
+    }
+
+    .cards {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px 24px;
+      width: 260px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.14);
+    }
+
+    .card-icon {
+      font-size: 2.4rem;
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+      color: #1a1a2e;
+    }
+
+    .card p {
+      font-size: 0.88rem;
+      color: #777;
+      line-height: 1.6;
+    }
+
+    .card-link {
+      display: inline-block;
+      margin-top: 16px;
+      color: #e94560;
+      font-size: 0.88rem;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .card-link:hover { text-decoration: underline; }
+
+    /* ──────────── FOOTER ──────────── */
+    footer {
+      background: #1a1a2e;
+      color: #aaa;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.85rem;
+    }
+
+    /* ──────────── RESPONSIVE ──────────── */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background: #1a1a2e;
+        padding: 20px 30px;
+        gap: 15px;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .burger {
+        display: flex;
+      }
+
+      .slider {
+        height: 280px;
+      }
+
+      .slide h2 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <a href="#" class="logo">MyBrand</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav> 
+  
+  <!-- SLIDER -->
+  <div class="slider">
+    <div class="slides" id="slides">
+      <div class="slide">
+        <h2>Mirë se vini! 👋</h2>
+        <p>Zbuloni shërbimet tona dhe gjeni gjithçka që ju nevojitet në një vend.</p>
+        <button class="slide-btn">Fillo tani</button>
+      </div>
+      <div class="slide">
+        <h2>Dizajn Modern</h2>
+        <p>Faqe të bukura dhe responsive të ndërtuara me teknologji bashkëkohore.</p>
+        <button class="slide-btn">Shiko projektet</button>
+      </div>
+      <div class="slide">
+        <h2>Na Kontaktoni</h2>
+        <p>Keni pyetje? Jemi këtu për t'ju ndihmuar çdo kohë.</p>
+        <button class="slide-btn">Kontakto</button>
+      </div>
+    </div>
+
+    <button class="arrow left"  id="prev">&#8249;</button>
+    <button class="arrow right" id="next">&#8250;</button>
+
+    <div class="slider-controls" id="dots"></div>
+  </div>
+
+  <!-- CARDS -->
+  <section class="cards-section">
+    <h2>Çfarë ofrojmë</h2>
+    <p class="subtitle">Tre arsye pse duhet të zgjidhni ne</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🎨</div>
+        <h3>UI / UX Design</h3>
+        <p>Krijojmë ndërfaqe të pastra dhe tërheqëse që përmirësojnë eksperiencën e përdoruesit.</p>
+        <a href="#" class="card-link">Mëso më shumë →</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">💻</div>
+        <h3>Web Development</h3>      
+        <p>Zhvillojmë faqe dhe aplikacione web me teknologji moderne dhe performancë të lartë.</p>
+        <a href="#" class="card-link">Mëso më shumë →</a>
+      </div>
+      <div class="card">
+        <div class="card-icon">📱</div>
+        <h3>Mobile Friendly</h3>
+        <p>Çdo projekt ynë është plotësisht responsive dhe funksionon perfekt në të gjitha pajisjet.</p>
+        <a href="#" class="card-link">Mëso më shumë →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2026 MyBrand. Të gjitha të drejtat e rezervuara.</p>
+  </footer>
+
+  <script>
+    // ── Burger menu ──
+    const burger   = document.getElementById('burger');
+    const navLinks = document.getElementById('navLinks');
+
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+
+    // ── Slider ──
+    const slidesEl = document.getElementById('slides');
+    const dotsEl   = document.getElementById('dots');
+    const total    = slidesEl.children.length;
+    let current    = 0;
+
+   
+
+    function goTo(index) {
+      current = (index + total) % total;
+      slidesEl.style.transform = `translateX(-${current * 100}%)`;
+      document.querySelectorAll('.dot').forEach((d, i) =>
+        d.classList.toggle('active', i === current)
+      );
+    }
+
+    document.getElementById('prev').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('next').addEventListener('click', () => goTo(current + 1));
+
+    // Auto-play
+    setInterval(() => goTo(current + 1), 4000);
+  </script>
+
+</body>
+</html>
